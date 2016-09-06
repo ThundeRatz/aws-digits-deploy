@@ -11,7 +11,9 @@ def parse_args():
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('input', help='Input file with list of xmin ymin xmax ymax')
-    parser.add_argument('output', help='Output KITTI formatted file')
+    parser.add_argument('output', help='Output KITTI formatted file (see https://github.com/' +
+                        'NVIDIA/DIGITS/blob/master/digits/extensions/data/objectDetection/README.md and' +
+                        'http://www.cvlibs.net/datasets/kitti/eval_object.php)')
     return parser.parse_args()
 
 
