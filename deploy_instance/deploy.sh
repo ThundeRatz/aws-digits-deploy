@@ -13,6 +13,6 @@ if ! ls remote_files/libcudnn5*+cuda"${CUDA_VERSION}"_amd64.deb ; then
 	echo "cuDNN page: https://developer.nvidia.com/cudnn"
 fi
 
-remote="ec2-user@$1"
+remote="ubuntu@$1"
 scp -r remote_files/ "$remote":
 ssh "$remote" remote_files/aws_digits_setup.sh
