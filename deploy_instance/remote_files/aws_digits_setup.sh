@@ -13,7 +13,8 @@ sudo apt-get install -y "linux-headers-$(uname -r)"
 
 # CUDA
 download_and_install_deb "$CUDA_REPO"
-sudo apt-get install -y cuda
+# Might fail the first time when handling cyclic deps
+sudo apt-get install -y cuda || sudo apt-get install -y cuda
 echo /usr/local/cuda-$CUDA_VERSION/lib64 | sudo tee /etc/ld.so.conf.d/cuda.conf
 sudo ldconfig
 echo "PATH=/usr/local/cuda-$CUDA_VERSION/bin:$PATH" | sudo tee -a /etc/profile
