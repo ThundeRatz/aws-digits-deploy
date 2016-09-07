@@ -9,7 +9,9 @@ echo _byobu_sourced=1 . /usr/bin/byobu-launch >> ~/.profile
 
 # Linux headers
 sudo apt-get update
-sudo apt-get install -y "linux-headers-$(uname -r)"
+sudo apt-get install -y "linux-headers-$(uname -r)" || echo \
+    "Installation of kernel for $(uname -r) failed.\n" \
+    "This is an expected failure if running inside a container." \
 
 # CUDA
 download_and_install_deb "$CUDA_REPO"
