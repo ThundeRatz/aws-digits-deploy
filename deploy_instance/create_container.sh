@@ -30,11 +30,12 @@ shell() {
     machinectl shell "$CONTAINER" "$@"
 }
 echo ============================================================
-echo 'Set up networking (will also enable forwarding on the host system)'
+echo 'Set up networking (will also start forwarding on the host)'
 echo 1 > /proc/sys/net/ipv4/ip_forward
 echo -e "127.0.0.1\t$(hostname)" >> "$ROOT/etc/hosts"
-echo 'nameserver 8.8.8.8' >> "$ROOT/etc/resolv.conf"
-shell /bin/systemctl enable systemd-networkd.service
+echo 'nameserver 8.8.8.8' > "$ROOT/etc/resolvconf/resolv.conf.d/tail"
+shell /sbin/resolvconf -u
+shell /bin/systemctl enable systemd-networkd.service ssh.service
 
 echo ============================================================
 echo Add ubuntu user
@@ -43,7 +44,7 @@ echo '%sudo   ALL=(ALL:ALL) NOPASSWD: ALL' > "$ROOT/etc/sudoers.d/sudo_nopasswd"
 
 echo ============================================================
 echo Add SSH keys
-mkdir "$ROOT/home/ubuntu/.ssh"
+mkdir -p "$ROOT/home/ubuntu/.ssh"
 chmod 700 "$ROOT/home/ubuntu/.ssh"
 cp ~/.ssh/id_rsa.pub "$ROOT/home/ubuntu/.ssh/authorized_keys"
 shell /bin/chown -R ubuntu:ubuntu /home/ubuntu/.ssh
