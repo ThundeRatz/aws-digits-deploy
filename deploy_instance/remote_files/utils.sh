@@ -6,3 +6,7 @@ download_and_install_deb() {
 	sudo dpkg -i package.deb
 	sudo apt-get update
 }
+
+apt_install() {
+    sudo apt-get install -y --no-install-recommends "$@"
+}
