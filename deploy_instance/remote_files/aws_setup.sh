@@ -32,7 +32,11 @@ sudo mkfs -t ext4 /dev/xvdb
 
 # fstab
 sudo mkdir /ebs
-UUID=$(file /dev/disk/by-uuid/* | grep ../../xvdb | sed 's|/dev/disk/by-uuid/\([^:]*\).*|\1|')
+while [[ -z $UUID ]] ; do
+    sleep 1
+    echo Trying to read UUID of newly created filesystem
+    UUID=$(file /dev/disk/by-uuid/* | grep ../../xvdb | sed 's|/dev/disk/by-uuid/\([^:]*\).*|\1|')
+done
 echo "UUID=$UUID    /ebs    ext4    defaults,nofail    0    2" | sudo tee -a /etc/fstab
 sudo mount -a
 
