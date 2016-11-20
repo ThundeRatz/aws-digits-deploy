@@ -53,9 +53,9 @@ def main(args):
 
     for j, f in enumerate(train):
         shutil.move(os.path.join(args.input, 'images', '{}.png'.format(f)),
-                    os.path.join(args.output, 'train', 'images', '{:06}.png'.format(i + j + 1)))
+                    os.path.join(args.output, 'train', 'images', '{:06}.png'.format(i + j + 2)))
         formatter.kitti_format(os.path.join(args.input, 'labels', '{}.txt'.format(f)),
-                               os.path.join(args.output, 'train', 'labels', '{:06}.txt'.format(i + 1)))
+                               os.path.join(args.output, 'train', 'labels', '{:06}.txt'.format(i + j + 2)))
 
 if __name__ == '__main__':
     main(parse_args())
